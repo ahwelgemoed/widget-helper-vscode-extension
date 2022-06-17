@@ -1,0 +1,79 @@
+{
+  "name": "pluggablewidgethelper",
+  "displayName": "pluggableWidgetHelper",
+  "description": "Helper for MX Devs",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.68.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:pluggablewidgethelper-sidebar",
+    "onCommand:pluggablewidgethelper.helloWorld"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pluggablewidgethelper-sidebar-view",
+          "title": "MX-Widget Helper",
+          "icon": "media/mxh.svg"
+        }
+      ]
+    },
+    "views": {
+      "pluggablewidgethelper-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "pluggablewidgethelper-sidebar",
+          "name": "Widget Helper",
+          "icon": "media/mxh.svg",
+          "contextualTitle": "MX-Widget Helper"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "pluggablewidgethelper.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "rollup -c && tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "watch:roll": "concurrently \"rollup -c -w\" \"tsc -watch -p ./\"",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.68.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.16.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.2"
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@tsconfig/svelte": "^3.0.0",
+    "concurrently": "^7.2.2",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "svelte": "^3.48.0",
+    "svelte-check": "^2.7.2",
+    "svelte-preprocess": "^4.10.7"
+  }
+}
