@@ -1,6 +1,12 @@
 # An VSCode Extension to help link Widget to Mendix Projects
 
+<img src='https://raw.githubusercontent.com/ahwelgemoed/widget-helper-vscode-extension/34d075a386790b99ee6c8fd4701c62e56047c339/media/logo.png'/>
+
 Helper for Mendix Developers to run everything you need from VSCode.
+
+## Example
+
+<img src='https://raw.githubusercontent.com/ahwelgemoed/widget-helper-vscode-extension/34d075a386790b99ee6c8fd4701c62e56047c339/media/demo.png'/>
 
 ### How To Use
 

@@ -50,12 +50,12 @@ export async function findFiles() {
 
     const workspaceFile: CodeWorkSpace = {
       folders: [
+        { name: spaceName, path: cleanFolders[0]!.path, type: "mainWidget" },
         {
           name: "Mendix Project",
           path: mendixPath.replace(/\"/g, ""),
           type: "mendix",
         },
-        { name: spaceName, path: cleanFolders[0]!.path, type: "mainWidget" },
       ],
       settings: {},
     };

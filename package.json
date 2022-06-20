@@ -3,11 +3,12 @@
   "displayName": "pluggableWidgetHelper",
   "description": "Helper for Mendix Devs to run everything you need from VsCode",
   "publisher": "welgemoed",
+  "icon": "media/logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/ahwelgemoed/widget-helper-vscode-extension.git"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.68.0"
   },
