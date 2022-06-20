@@ -1,11 +1,10 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import * as vscode from "vscode";
 import { CodeWorkSpace, displayMessage, filesInProject } from "./utils";
 
 export async function getEnv() {
   const { workspaceFile } = vscode.workspace;
   if (workspaceFile) {
-    displayMessage("Getting ENV for Workspace");
     const readWorkspaceFile = await readFile(workspaceFile.path, "utf8");
     if (!workspaceFile) {
       return;

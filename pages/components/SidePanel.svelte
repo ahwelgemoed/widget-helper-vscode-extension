@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { ifError } from "assert";
+
   import { onMount } from "svelte";
 
   let envPath = "";
@@ -6,12 +8,27 @@
   let widgetPath = "";
   let widgetNameToAdd = "";
   let files: any;
+  let mendixFiles: any;
+  let mendixFile: any;
 
+  console.log("isWorkspace", isWorkspace);
+
+  $: if (mendixFiles) {
+    console.log("(mendixFiles.path as string).replace");
+    const parsePath = (mendixFiles.path as string).replace(
+      `/${mendixFiles.name}`,
+      ""
+    );
+    mendixFile = parsePath;
+    envPath = parsePath;
+  }
   $: if (files) {
     widgetPath = (files[0].path as string).replace(`/${files[0].name}`, "");
     const splitPath = widgetPath.split("/");
     widgetNameToAdd = splitPath[splitPath.length - 1];
   }
+
+  // $: $mendixFiles = mendixFiles;
 
   onMount(async () => {
     window.addEventListener("message", async (event) => {
@@ -19,9 +36,11 @@
       switch (message.command) {
         case "mx-path": {
           envPath = message.value;
+          mendixFile = message.value;
           return;
         }
         case "is-workspace": {
+          console.log("message.value", message.value);
           isWorkspace = message.value;
           return;
         }
@@ -33,8 +52,26 @@
 
 <div>
   <h1>MX Widget Helper</h1>
-  <h3>1) Add Path to Mendix Project</h3>
-  <input bind:value={envPath} placeholder="Path to MX Project" />
+  <h2>Open Widget First</h2>
+  <h3>1) Select Mendix</h3>
+
+  <label for="mx-file-upload" class="custom-file-upload">
+    Select Mendix Project
+  </label>
+  <input
+    id="mx-file-upload"
+    type="file"
+    webkitdirectory
+    directory
+    multiple
+    on:input={(e) => (mendixFiles = e.target.files[0])}
+  />
+  {#if mendixFile}
+    <h4>
+      PATH TO MENDIX: {mendixFile}
+    </h4>
+  {/if}
+
   <div class="btn-container">
     <button
       disabled={!envPath}
@@ -47,7 +84,7 @@
   <h3>2) After Creating an .ENV craet a workspace with your Mendix Project</h3>
   <div class="btn-container">
     <button
-      disabled={!envPath}
+      disabled={!envPath || isWorkspace}
       on:click={() => {
         tsVscode.postMessage({
           command: "create-workspace",
@@ -85,9 +122,9 @@
     >
   </div>
 
-  {#if isWorkspace === true}
-    <h4>Some Helpers</h4>
-    <div class="btn-container">
+  <h4>Some Helpers</h4>
+  <div class="btn-container">
+    {#if isWorkspace === true}
       <button
         on:click={() => {
           tsVscode.postMessage({
@@ -96,7 +133,7 @@
           });
         }}>Open Mendix Project</button
       >
-      <a href="https://sprintr.home.mendix.com/">Open Sprintr</a>
-    </div>
-  {/if}
+    {/if}
+    <a href="https://sprintr.home.mendix.com/">Open Sprintr</a>
+  </div>
 </div>

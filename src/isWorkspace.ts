@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-export function isWorkspace(): boolean {
-  const { workspaceFile } = vscode.workspace;
-  return !!workspaceFile;
+export async function isWorkspace(): Promise<boolean> {
+  const workspaceFile = vscode.workspace.workspaceFile;
+  return workspaceFile !== undefined;
 }

@@ -49,8 +49,8 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
           break;
         }
         case "get-env": {
-          const isWorkspaceBool = isWorkspace();
           const mxPath = await getEnv();
+          const isWorkspaceBool = await isWorkspace();
           webviewView.webview.postMessage({
             command: "is-workspace",
             value: isWorkspaceBool,
@@ -131,7 +131,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
             justify-content: space-between;
           }
           input[type="file"] {
-            display: none;
+            display:none;
           }
           button:disabled {
             background-color: var(--vscode-button-secondaryBackground);
